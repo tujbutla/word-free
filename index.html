@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Free — бесплатный текстовый редактор</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        background: #f5f7fb;
+        color: #1a1a2e;
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
+
+    /* ==== НАВИГАЦИЯ ==== */
+    nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 15px 60px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        z-index: 1000;
+    }
+
+    .logo {
+        font-size: 24px;
+        font-weight: 800;
+        background: linear-gradient(135deg, #2c7be5, #6b8cff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .logo-icon {
+        width: 32px;
+        height: 32px;
+        background: linear-gradient(135deg, #2c7be5, #6b8cff);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 18px;
+        -webkit-text-fill-color: white;
+    }
+
+    nav ul {
+        display: flex;
+        gap: 30px;
+        list-style: none;
+    }
+
+    nav ul a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        transition: color 0.3s;
+        font-size: 15px;
+    }
+
+    nav ul a:hover {
+        color: #2c7be5;
+    }
+
+    .nav-btn {
+        background: linear-gradient(135deg, #2c7be5, #6b8cff);
+        color: white !important;
+        padding: 10px 22px;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .nav-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(44, 123, 229, 0.4);
+    }
+
+    /* ==== ГЛАВНЫЙ БЛОК ==== */
+    .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 120px 80px 80px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: -300px;
+        right: -300px;
+        width: 700px;
+        height: 700px;
+        background: radial-gradient(circle, rgba(107, 140, 255, 0.2), transparent 70%);
+        border-radius: 50%;
+        animation: float 8s ease-in-out infinite;
+    }
+
+    .hero::after {
+        content: '';
+        position: absolute;
+        bottom: -200px;
+        left: -200px;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(44, 123, 229, 0.15), transparent 70%);
+        border-radius: 50%;
+        animation: float 10s ease-in-out infinite reverse;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translate(0, 0); }
+        50% { transform: translate(30px, -30px); }
+    }
+
+    .hero-text {
+        max-width: 600px;
+        z-index: 2;
+    }
+
+    .badge {
+        display: inline-block;
+        background: rgba(44, 123, 229, 0.1);
+        color: #2c7be5;
+        padding: 8px 18px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        border: 1px solid rgba(44, 123, 229, 0.2);
+    }
+
+    .hero h1 {
+        font-size: 62px;
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 25px;
+        color: #1a1a2e;
+    }
+
+    .hero h1 span {
+        background: linear-gradient(135deg, #2c7be5, #6b8cff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+        font-size: 19px;
+        color: #555;
+        margin-bottom: 35px;
+        max-width: 500px;
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: linear-gradient(135deg, #2c7be5, #6b8cff);
+        color: white;
+        padding: 16px 32px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 16px;
+        transition: all 0.3s;
+        box-shadow: 0 10px 30px rgba(44, 123, 229, 0.35);
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(44, 123, 229, 0.5);
+    }
+
+    .btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: white;
+        color: #2c7be5;
+        padding: 16px 32px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 16px;
+        border: 2px solid #2c7be5;
+        transition: all 0.3s;
+    }
+
+    .btn-secondary:hover {
+        background: #2c7be5;
+        color: white;
+        transform: translateY(-3px);
+    }
+
+    /* ==== ИКОНКА ПРИЛОЖЕНИЯ ==== */
+    .hero-visual {
+        position: relative;
+        z-index: 2;
+    }
+
+    .app-preview {
+        width: 500px;
+        height: 340px;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+        overflow: hidden;
+        position: relative;
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .app-topbar {
+        height: 40px;
+        background: linear-gradient(135deg, #f0f2f5, #e8ecf1);
+        display: flex;
+        align-items: center;
+        padding: 0 15px;
+        gap: 8px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+    }
+
+    .dot.red { background: #ff5f57; }
+    .dot.yellow { background: #febc2e; }
+    .dot.green { background: #28c840; }
+
+    .app-toolbar {
+        padding: 10px 15px;
+        display: flex;
+        gap: 8px;
+        background: #f8f9fb;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .tool-btn {
+        width: 28px;
+        height: 28px;
+        background: white;
+        border-radius: 6px;
+        border: 1px solid #e0e0e0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+        color: #555;
+    }
+
+    .app-content {
+        padding: 25px;
+        color: #333;
+        font-size: 13px;
+    }
+
+    .app-content h3 {
+        margin-bottom: 12px;
+        color: #1a1a2e;
+        font-size: 18px;
+    }
+
+    .app-content .line {
+        height: 8px;
+        background: #e8ecf1;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+
+    .line.short { width: 60%; }
+    .line.medium { width: 80%; }
+
+    /* ==== СЕКЦИЯ ФУНКЦИЙ ==== */
+    .features {
+        padding: 100px 80px;
+        background: white;
+    }
+
+    .section-title {
+        text-align: center;
+        margin-bottom: 70px;
+    }
+
+    .section-title h2 {
+        font-size: 44px;
+        font-weight: 800;
+        margin-bottom: 15px;
+        color: #1a1a2e;
+    }
+
+    .section-title p {
+        font-size: 18px;
+        color: #666;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .feature-card {
+        padding: 35px 30px;
+        background: #f8f9fb;
+        border-radius: 16px;
+        transition: all 0.3s;
+        border: 1px solid #eee;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        background: white;
+        border-color: #2c7be5;
+    }
+
+    .feature-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #2c7be5, #6b8cff);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    .feature-card h3 {
+        font-size: 20px;
+        margin-bottom: 12px;
+        color: #1a1a2e;
+    }
+
+    .feature-card p {
+        color: #666;
+        font-size: 15px;
+    }
+
+    /* ==== СКАЧАТЬ ==== */
+    .download {
+        padding: 120px 80px;
+        background: linear-gradient(135deg, #1a1a2e 0%, #2c3e6b 100%);
+        color: white;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .download::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -10%;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(107, 140, 255, 0.3), transparent 70%);
+        border-radius: 50%;
+    }
+
+    .download h2 {
+        font-size: 48px;
+        font-weight: 800;
+        margin-bottom: 20px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .download p {
+        font-size: 19px;
+        color: #b8c4e0;
+        margin-bottom: 40px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .download-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        background: white;
+        color: #2c7be5;
+        padding: 20px 45px;
+        border-radius: 14px;
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 18px;
+        transition: all 0.3s;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        position: relative;
+        z-index: 2;
+        cursor: pointer;
+        border: none;
+    }
+
+    .download-btn:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+    }
+
+    .download-info {
+        margin-top: 25px;
+        font-size: 14px;
+        color: #8899bb;
+        position: relative;
+        z-index: 2;
+    }
+
+    /* ==== ФУТЕР ==== */
+    footer {
+        padding: 40px 80px;
+        background: #0f0f1e;
+        color: #8899bb;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    footer a {
+        color: #6b8cff;
+        text-decoration: none;
+    }
+
+    /* ==== АДАПТИВ ==== */
+    @media (max-width: 968px) {
+        nav { padding: 15px 25px; }
+        nav ul { display: none; }
+        .hero {
+            flex-direction: column;
+            padding: 120px 25px 60px;
+            text-align: center;
+        }
+        .hero h1 { font-size: 42px; }
+        .hero p { font-size: 17px; margin-left: auto; margin-right: auto; }
+        .hero-buttons { justify-content: center; }
+        .app-preview { width: 100%; max-width: 450px; margin-top: 50px; height: 300px; }
+        .features { padding: 60px 25px; }
+        .section-title h2 { font-size: 32px; }
+        .download { padding: 80px 25px; }
+        .download h2 { font-size: 32px; }
+        .download p { font-size: 16px; }
+    }
+</style>
+</head>
+<body>
+
+<!-- НАВИГАЦИЯ -->
+<nav>
+    <div class="logo">
+        <div class="logo-icon">W</div>
+        Word Free
+    </div>
+    <ul>
+        <li><a href="#features">Возможности</a></li>
+        <li><a href="#download">Скачать</a></li>
+        <li><a href="#download" class="nav-btn">⬇ Загрузить</a></li>
+    </ul>
+</nav>
+
+<!-- ГЛАВНЫЙ БЛОК -->
+<section class="hero">
+    <div class="hero-text">
+        <div class="badge">✨ Бесплатно и без ограничений</div>
+        <h1>Твой <span>Word Free</span> для Windows</h1>
+        <p>Мощный текстовый редактор с таблицами, картинками, форматированием и печатью. Всё как в настоящем Word — только бесплатно и без подписок.</p>
+        <div class="hero-buttons">
+            <a href="#download" class="btn-primary">
+                ⬇ Скачать бесплатно
+            </a>
+            <a href="#features" class="btn-secondary">
+                Узнать больше
+            </a>
+        </div>
+    </div>
+
+    <div class="hero-visual">
+        <div class="app-preview">
+            <div class="app-topbar">
+                <div class="dot red"></div>
+                <div class="dot yellow"></div>
+                <div class="dot green"></div>
+            </div>
+            <div class="app-toolbar">
+                <div class="tool-btn">Ж</div>
+                <div class="tool-btn">К</div>
+                <div class="tool-btn">Ч</div>
+                <div class="tool-btn">🎨</div>
+                <div class="tool-btn">📊</div>
+                <div class="tool-btn">📷</div>
+                <div class="tool-btn">🖨️</div>
+            </div>
+            <div class="app-content">
+                <h3>Мой документ</h3>
+                <div class="line medium"></div>
+                <div class="line short"></div>
+                <div class="line medium"></div>
+                <div class="line"></div>
+                <div class="line short"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ВОЗМОЖНОСТИ -->
+<section class="features" id="features">
+    <div class="section-title">
+        <h2>Что умеет Word Free</h2>
+        <p>Всё, что нужно для работы с текстом — в одном простом приложении</p>
+    </div>
+
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">📝</div>
+            <h3>Форматирование</h3>
+            <p>Жирный, курсив, подчёркнутый, маркер, цвет текста, надстрочный и подстрочный знаки.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>9 видов таблиц</h3>
+            <p>Зебра, современная синяя, минимализм, сетка 3D, своя палитра и другие стили.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">📷</div>
+            <h3>Вставка фото</h3>
+            <p>Вставляй картинки в документ — они сохраняются вместе с текстом в формате HTML.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🔍</div>
+            <h3>Поиск и замена</h3>
+            <p>Быстро находи и заменяй слова по всему документу, с учётом регистра.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🖨️</div>
+            <h3>Печать</h3>
+            <p>Отправляй документы на принтер одной кнопкой или через Ctrl+P.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🔗</div>
+            <h3>Ссылки и даты</h3>
+            <p>Вставляй кликабельные гиперссылки и текущую дату прямо в документ.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">↩️</div>
+            <h3>Отмена и возврат</h3>
+            <p>Ошибся? Нажми Ctrl+Z — и всё вернётся. Ctrl+Y вернёт отменённое.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">📈</div>
+            <h3>Счётчик слов</h3>
+            <p>Внизу окна всегда видно, сколько слов и символов в документе.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🆓</div>
+            <h3>Полностью бесплатно</h3>
+            <p>Никаких подписок, рекламы, ограничений и «премиум» версий. Навсегда.</p>
+        </div>
+    </div>
+</section>
+
+<!-- СКАЧАТЬ -->
+<section class="download" id="download">
+    <h2>Готов начать?</h2>
+    <p>Скачай Word Free прямо сейчас — установка не требуется</p>
+    <a href="#" class="download-btn" onclick="downloadApp(); return false;">
+        ⬇ Скачать Word Free для Windows
+    </a>
+    <div class="download-info">
+        Windows 10 / 11 · ~50 МБ · Бесплатно навсегда
+    </div>
+</section>
+
+<!-- ФУТЕР -->
+<footer>
+    <p>© 2026 Word Free. Сделано с ❤️ для тех, кто любит писать.</p>
+</footer>
+
+<script>
+    function downloadApp() {
+        // Здесь можно поставить ссылку на реальный файл
+        // Например: window.location.href = 'word_free.exe';
+        alert("🚀 Здесь будет ссылка на скачивание!\n\nКогда соберёшь .exe файл, замени эту кнопку на ссылку к нему.");
+    }
+
+    // Плавное появление карточек при скролле
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.feature-card').forEach((card, i) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = `all 0.6s ease ${i * 0.05}s`;
+        observer.observe(card);
+    });
+</script>
+
+</body>
+</html>
