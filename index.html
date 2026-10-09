@@ -5,603 +5,389 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Word Free — бесплатный текстовый редактор</title>
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Segoe UI', Tahoma, sans-serif;
-    }
-
-    html {
-        scroll-behavior: smooth;
-    }
-
-    body {
-        background: #f5f7fb;
-        color: #1a1a2e;
-        line-height: 1.6;
-        overflow-x: hidden;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { background: #f5f7fb; color: #1a1a2e; line-height: 1.6; overflow-x: hidden; }
 
     /* ==== НАВИГАЦИЯ ==== */
     nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        padding: 15px 60px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: rgba(255, 255, 255, 0.85);
-        backdrop-filter: blur(12px);
-        box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-        z-index: 1000;
+        position: fixed; top: 0; left: 0; width: 100%;
+        padding: 15px 60px; display: flex; justify-content: space-between; align-items: center;
+        background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px);
+        box-shadow: 0 2px 20px rgba(0,0,0,0.05); z-index: 1000;
     }
-
-    .logo {
-        font-size: 24px;
-        font-weight: 800;
+    .logo { font-size: 24px; font-weight: 800; display: flex; align-items: center; gap: 8px;
         background: linear-gradient(135deg, #2c7be5, #6b8cff);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .logo-icon {
-        width: 32px;
-        height: 32px;
-        background: linear-gradient(135deg, #2c7be5, #6b8cff);
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 18px;
-        -webkit-text-fill-color: white;
-    }
-
-    nav ul {
-        display: flex;
-        gap: 30px;
-        list-style: none;
-    }
-
-    nav ul a {
-        text-decoration: none;
-        color: #333;
-        font-weight: 500;
-        transition: color 0.3s;
-        font-size: 15px;
-    }
-
-    nav ul a:hover {
-        color: #2c7be5;
-    }
-
-    .nav-btn {
-        background: linear-gradient(135deg, #2c7be5, #6b8cff);
-        color: white !important;
-        padding: 10px 22px;
-        border-radius: 10px;
-        font-weight: 600;
-        transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .nav-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(44, 123, 229, 0.4);
-    }
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, #2c7be5, #6b8cff);
+        border-radius: 8px; display: flex; align-items: center; justify-content: center;
+        color: white; font-size: 18px; -webkit-text-fill-color: white; }
+    nav ul { display: flex; gap: 25px; list-style: none; align-items: center; }
+    nav ul a { text-decoration: none; color: #333; font-weight: 500; transition: color 0.3s; font-size: 15px; }
+    nav ul a:hover { color: #2c7be5; }
+    .nav-btn { background: linear-gradient(135deg, #2c7be5, #6b8cff); color: white !important;
+        padding: 10px 22px; border-radius: 10px; font-weight: 600; transition: transform 0.3s; }
+    .nav-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(44, 123, 229, 0.4); }
 
     /* ==== ГЛАВНЫЙ БЛОК ==== */
-    .hero {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 120px 80px 80px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .hero::before {
-        content: '';
-        position: absolute;
-        top: -300px;
-        right: -300px;
-        width: 700px;
-        height: 700px;
+    .hero { min-height: 100vh; display: flex; align-items: center; justify-content: space-between;
+        padding: 120px 80px 80px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -300px; right: -300px; width: 700px; height: 700px;
         background: radial-gradient(circle, rgba(107, 140, 255, 0.2), transparent 70%);
-        border-radius: 50%;
-        animation: float 8s ease-in-out infinite;
-    }
-
-    .hero::after {
-        content: '';
-        position: absolute;
-        bottom: -200px;
-        left: -200px;
-        width: 500px;
-        height: 500px;
+        border-radius: 50%; animation: float 8s ease-in-out infinite; }
+    .hero::after { content: ''; position: absolute; bottom: -200px; left: -200px; width: 500px; height: 500px;
         background: radial-gradient(circle, rgba(44, 123, 229, 0.15), transparent 70%);
-        border-radius: 50%;
-        animation: float 10s ease-in-out infinite reverse;
-    }
+        border-radius: 50%; animation: float 10s ease-in-out infinite reverse; }
+    @keyframes float { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(30px, -30px); } }
+    .hero-text { max-width: 600px; z-index: 2; }
+    .badge { display: inline-block; background: rgba(44, 123, 229, 0.1); color: #2c7be5;
+        padding: 8px 18px; border-radius: 30px; font-size: 14px; font-weight: 600;
+        margin-bottom: 20px; border: 1px solid rgba(44, 123, 229, 0.2); }
+    .hero h1 { font-size: 62px; font-weight: 800; line-height: 1.1; margin-bottom: 25px; }
+    .hero h1 span { background: linear-gradient(135deg, #2c7be5, #6b8cff);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { font-size: 19px; color: #555; margin-bottom: 35px; max-width: 500px; }
+    .hero-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 10px;
+        background: linear-gradient(135deg, #2c7be5, #6b8cff); color: white;
+        padding: 16px 32px; border-radius: 12px; text-decoration: none; font-weight: 700;
+        font-size: 16px; transition: all 0.3s; box-shadow: 0 10px 30px rgba(44, 123, 229, 0.35);
+        border: none; cursor: pointer; }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(44, 123, 229, 0.5); }
+    .btn-secondary { display: inline-flex; align-items: center; gap: 10px; background: white;
+        color: #2c7be5; padding: 16px 32px; border-radius: 12px; text-decoration: none;
+        font-weight: 700; font-size: 16px; border: 2px solid #2c7be5; transition: all 0.3s; }
+    .btn-secondary:hover { background: #2c7be5; color: white; transform: translateY(-3px); }
 
-    @keyframes float {
-        0%, 100% { transform: translate(0, 0); }
-        50% { transform: translate(30px, -30px); }
-    }
+    /* ==== ОБЛОЖКА ===== */
+    .hero-visual { position: relative; z-index: 2; }
+    .cover-wrap { width: 560px; max-width: 100%; position: relative; }
+    .cover-browser { width: 100%; background: white; border-radius: 14px;
+        box-shadow: 0 30px 80px rgba(0,0,0,0.25); overflow: hidden;
+        animation: float 6s ease-in-out infinite; }
+    .cover-topbar { height: 38px; background: linear-gradient(135deg, #f0f2f5, #e8ecf1);
+        display: flex; align-items: center; padding: 0 15px; gap: 8px; border-bottom: 1px solid #e0e0e0; }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot.red { background: #ff5f57; } .dot.yellow { background: #febc2e; } .dot.green { background: #28c840; }
+    .cover-content { padding: 0; background: #fff; }
 
-    .hero-text {
-        max-width: 600px;
-        z-index: 2;
-    }
+    /* Имитация нашего приложения внутри "скриншота" */
+    .app-screenshot { display: flex; flex-direction: column; height: 380px; }
+    .app-titlebar { height: 34px; background: #f5f7fb; border-bottom: 1px solid #e5e7eb;
+        display: flex; align-items: center; padding: 0 12px; font-size: 12px; color: #333;
+        font-weight: 600; gap: 8px; }
+    .app-titlebar .w-logo { width: 18px; height: 18px; background: linear-gradient(135deg, #2c7be5, #6b8cff);
+        border-radius: 4px; display: flex; align-items: center; justify-content: center;
+        color: white; font-size: 10px; font-weight: bold; }
+    .app-menu { height: 26px; display: flex; gap: 14px; padding: 0 12px; align-items: center;
+        background: #f5f7fb; border-bottom: 1px solid #e5e7eb; font-size: 11px; color: #555; }
+    .app-toolbar2 { height: 44px; background: #eef3fb; display: flex; gap: 6px; align-items: center;
+        padding: 0 10px; border-bottom: 1px solid #e0e0e0; flex-wrap: wrap; }
+    .tb-btn { padding: 5px 9px; background: white; border: 1px solid #d8e2ef; border-radius: 5px;
+        font-size: 10px; font-weight: bold; color: #333; }
+    .tb-btn.active { background: #2c7be5; color: white; border-color: #2c7be5; }
+    .app-text-area { flex: 1; background: white; padding: 18px 22px; font-size: 12px; color: #333;
+        display: flex; flex-direction: column; gap: 8px; }
+    .app-text-area h4 { font-size: 15px; color: #1a1a2e; margin-bottom: 4px; }
+    .app-line { height: 7px; background: #e8ecf1; border-radius: 4px; }
+    .app-line.short { width: 55%; } .app-line.medium { width: 78%; } .app-line.long { width: 92%; }
+    .app-table-mock { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+        border: 1px solid #cbd5e1; border-radius: 4px; overflow: hidden; margin-top: 6px; }
+    .app-table-mock div { padding: 5px 8px; font-size: 10px; border-right: 1px solid #e5e7eb;
+        border-bottom: 1px solid #e5e7eb; color: #555; }
+    .app-table-mock .head { background: #2c7be5; color: white; font-weight: bold; }
+    .app-table-mock div:nth-child(3n) { border-right: none; }
+    .app-table-mock div:nth-last-child(-n+3) { border-bottom: none; }
+    .app-status { height: 22px; background: #f5f7fb; border-top: 1px solid #e5e7eb;
+        font-size: 10px; color: #666; padding: 0 12px; display: flex; align-items: center;
+        justify-content: space-between; }
 
-    .badge {
-        display: inline-block;
-        background: rgba(44, 123, 229, 0.1);
-        color: #2c7be5;
-        padding: 8px 18px;
-        border-radius: 30px;
-        font-size: 14px;
-        font-weight: 600;
-        margin-bottom: 20px;
-        border: 1px solid rgba(44, 123, 229, 0.2);
-    }
+    /* ==== СЕКЦИИ ==== */
+    .features { padding: 100px 80px; background: white; }
+    .section-title { text-align: center; margin-bottom: 70px; }
+    .section-title h2 { font-size: 44px; font-weight: 800; margin-bottom: 15px; }
+    .section-title p { font-size: 18px; color: #666; max-width: 600px; margin: 0 auto; }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px; max-width: 1200px; margin: 0 auto; }
+    .feature-card { padding: 35px 30px; background: #f8f9fb; border-radius: 16px;
+        transition: all 0.3s; border: 1px solid #eee; }
+    .feature-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        background: white; border-color: #2c7be5; }
+    .feature-icon { width: 60px; height: 60px; background: linear-gradient(135deg, #2c7be5, #6b8cff);
+        border-radius: 14px; display: flex; align-items: center; justify-content: center;
+        font-size: 28px; margin-bottom: 20px; }
+    .feature-card h3 { font-size: 20px; margin-bottom: 12px; }
+    .feature-card p { color: #666; font-size: 15px; }
 
-    .hero h1 {
-        font-size: 62px;
-        font-weight: 800;
-        line-height: 1.1;
-        margin-bottom: 25px;
-        color: #1a1a2e;
-    }
+    /* ==== ОБНОВЛЕНИЯ ==== */
+    .updates { padding: 100px 80px; background: #f5f7fb; }
+    .update-list { max-width: 900px; margin: 0 auto; }
+    .update-item { background: white; border-radius: 14px; padding: 28px 32px;
+        margin-bottom: 20px; border-left: 5px solid #2c7be5;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.04); transition: transform 0.3s; }
+    .update-item:hover { transform: translateX(5px); }
+    .update-header { display: flex; justify-content: space-between; align-items: center;
+        flex-wrap: wrap; gap: 10px; margin-bottom: 15px; }
+    .update-version { font-size: 20px; font-weight: 800; color: #2c7be5; }
+    .update-date { font-size: 14px; color: #888; background: #f0f3f8;
+        padding: 4px 12px; border-radius: 20px; }
+    .update-tag { font-size: 11px; font-weight: 700; text-transform: uppercase;
+        color: white; background: #28c840; padding: 3px 10px; border-radius: 12px; margin-left: 10px; }
+    .update-list-content { list-style: none; padding: 0; }
+    .update-list-content li { padding: 6px 0 6px 26px; position: relative; color: #555; font-size: 15px; }
+    .update-list-content li::before { content: '✨'; position: absolute; left: 0; }
 
-    .hero h1 span {
-        background: linear-gradient(135deg, #2c7be5, #6b8cff);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-
-    .hero p {
-        font-size: 19px;
-        color: #555;
-        margin-bottom: 35px;
-        max-width: 500px;
-    }
-
-    .hero-buttons {
-        display: flex;
-        gap: 15px;
-        flex-wrap: wrap;
-    }
-
-    .btn-primary {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        background: linear-gradient(135deg, #2c7be5, #6b8cff);
-        color: white;
-        padding: 16px 32px;
-        border-radius: 12px;
-        text-decoration: none;
-        font-weight: 700;
-        font-size: 16px;
-        transition: all 0.3s;
-        box-shadow: 0 10px 30px rgba(44, 123, 229, 0.35);
-        border: none;
-        cursor: pointer;
-    }
-
-    .btn-primary:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 15px 40px rgba(44, 123, 229, 0.5);
-    }
-
-    .btn-secondary {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        background: white;
-        color: #2c7be5;
-        padding: 16px 32px;
-        border-radius: 12px;
-        text-decoration: none;
-        font-weight: 700;
-        font-size: 16px;
-        border: 2px solid #2c7be5;
-        transition: all 0.3s;
-    }
-
-    .btn-secondary:hover {
-        background: #2c7be5;
-        color: white;
-        transform: translateY(-3px);
-    }
-
-    /* ==== ИКОНКА ПРИЛОЖЕНИЯ ==== */
-    .hero-visual {
-        position: relative;
-        z-index: 2;
-    }
-
-    .app-preview {
-        width: 500px;
-        height: 340px;
-        background: white;
-        border-radius: 16px;
-        box-shadow: 0 30px 80px rgba(0,0,0,0.2);
-        overflow: hidden;
-        position: relative;
-        animation: float 6s ease-in-out infinite;
-    }
-
-    .app-topbar {
-        height: 40px;
-        background: linear-gradient(135deg, #f0f2f5, #e8ecf1);
-        display: flex;
-        align-items: center;
-        padding: 0 15px;
-        gap: 8px;
-        border-bottom: 1px solid #e0e0e0;
-    }
-
-    .dot {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-    }
-
-    .dot.red { background: #ff5f57; }
-    .dot.yellow { background: #febc2e; }
-    .dot.green { background: #28c840; }
-
-    .app-toolbar {
-        padding: 10px 15px;
-        display: flex;
-        gap: 8px;
-        background: #f8f9fb;
-        border-bottom: 1px solid #e0e0e0;
-    }
-
-    .tool-btn {
-        width: 28px;
-        height: 28px;
-        background: white;
-        border-radius: 6px;
-        border: 1px solid #e0e0e0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 12px;
-        font-weight: bold;
-        color: #555;
-    }
-
-    .app-content {
-        padding: 25px;
-        color: #333;
-        font-size: 13px;
-    }
-
-    .app-content h3 {
-        margin-bottom: 12px;
-        color: #1a1a2e;
-        font-size: 18px;
-    }
-
-    .app-content .line {
-        height: 8px;
-        background: #e8ecf1;
-        border-radius: 4px;
-        margin-bottom: 10px;
-    }
-
-    .line.short { width: 60%; }
-    .line.medium { width: 80%; }
-
-    /* ==== СЕКЦИЯ ФУНКЦИЙ ==== */
-    .features {
-        padding: 100px 80px;
-        background: white;
-    }
-
-    .section-title {
-        text-align: center;
-        margin-bottom: 70px;
-    }
-
-    .section-title h2 {
-        font-size: 44px;
-        font-weight: 800;
-        margin-bottom: 15px;
-        color: #1a1a2e;
-    }
-
-    .section-title p {
-        font-size: 18px;
-        color: #666;
-        max-width: 600px;
-        margin: 0 auto;
-    }
-
-    .features-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 30px;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .feature-card {
-        padding: 35px 30px;
-        background: #f8f9fb;
-        border-radius: 16px;
-        transition: all 0.3s;
-        border: 1px solid #eee;
-    }
-
-    .feature-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-        background: white;
-        border-color: #2c7be5;
-    }
-
-    .feature-icon {
-        width: 60px;
-        height: 60px;
-        background: linear-gradient(135deg, #2c7be5, #6b8cff);
-        border-radius: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 28px;
-        margin-bottom: 20px;
-    }
-
-    .feature-card h3 {
-        font-size: 20px;
-        margin-bottom: 12px;
-        color: #1a1a2e;
-    }
-
-    .feature-card p {
-        color: #666;
-        font-size: 15px;
-    }
+    /* ==== ОТЗЫВЫ И БАГИ ==== */
+    .feedback { padding: 100px 80px; background: white; }
+    .feedback-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
+        max-width: 1000px; margin: 0 auto; }
+    .feedback-card { padding: 45px 40px; border-radius: 20px; text-align: center;
+        transition: transform 0.3s; }
+    .feedback-card.bug { background: linear-gradient(135deg, #fff5f5, #ffe5e5); border: 2px solid #ffdddd; }
+    .feedback-card.review { background: linear-gradient(135deg, #f0f7ff, #e0eeff); border: 2px solid #d0e4ff; }
+    .feedback-card:hover { transform: translateY(-6px); }
+    .feedback-icon { font-size: 55px; margin-bottom: 20px; }
+    .feedback-card h3 { font-size: 24px; margin-bottom: 12px; color: #1a1a2e; }
+    .feedback-card p { color: #555; margin-bottom: 25px; font-size: 15px; }
+    .feedback-btn { display: inline-flex; align-items: center; gap: 8px;
+        padding: 14px 28px; border-radius: 10px; text-decoration: none;
+        font-weight: 700; font-size: 15px; transition: all 0.3s; }
+    .feedback-btn.bug { background: #e5484d; color: white; }
+    .feedback-btn.bug:hover { background: #c9383c; transform: scale(1.05); }
+    .feedback-btn.review { background: #2c7be5; color: white; }
+    .feedback-btn.review:hover { background: #1e5fc4; transform: scale(1.05); }
 
     /* ==== СКАЧАТЬ ==== */
-    .download {
-        padding: 120px 80px;
-        background: linear-gradient(135deg, #1a1a2e 0%, #2c3e6b 100%);
-        color: white;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .download::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -10%;
-        width: 600px;
-        height: 600px;
-        background: radial-gradient(circle, rgba(107, 140, 255, 0.3), transparent 70%);
-        border-radius: 50%;
-    }
-
-    .download h2 {
-        font-size: 48px;
-        font-weight: 800;
-        margin-bottom: 20px;
-        position: relative;
-        z-index: 2;
-    }
-
-    .download p {
-        font-size: 19px;
-        color: #b8c4e0;
-        margin-bottom: 40px;
-        position: relative;
-        z-index: 2;
-    }
-
-    .download-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        background: white;
-        color: #2c7be5;
-        padding: 20px 45px;
-        border-radius: 14px;
-        text-decoration: none;
-        font-weight: 800;
-        font-size: 18px;
-        transition: all 0.3s;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-        position: relative;
-        z-index: 2;
-        cursor: pointer;
-        border: none;
-    }
-
-    .download-btn:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 25px 60px rgba(0,0,0,0.4);
-    }
-
-    .download-info {
-        margin-top: 25px;
-        font-size: 14px;
-        color: #8899bb;
-        position: relative;
-        z-index: 2;
-    }
+    .download { padding: 120px 80px; background: linear-gradient(135deg, #1a1a2e 0%, #2c3e6b 100%);
+        color: white; text-align: center; position: relative; overflow: hidden; }
+    .download::before { content: ''; position: absolute; top: -50%; left: -10%; width: 600px;
+        height: 600px; background: radial-gradient(circle, rgba(107, 140, 255, 0.3), transparent 70%);
+        border-radius: 50%; }
+    .download h2 { font-size: 48px; font-weight: 800; margin-bottom: 20px; position: relative; z-index: 2; }
+    .download p { font-size: 19px; color: #b8c4e0; margin-bottom: 40px; position: relative; z-index: 2; }
+    .download-btn { display: inline-flex; align-items: center; gap: 12px; background: white;
+        color: #2c7be5; padding: 20px 45px; border-radius: 14px; text-decoration: none;
+        font-weight: 800; font-size: 18px; transition: all 0.3s;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.3); position: relative; z-index: 2;
+        cursor: pointer; border: none; }
+    .download-btn:hover { transform: translateY(-4px); box-shadow: 0 25px 60px rgba(0,0,0,0.4); }
+    .download-info { margin-top: 25px; font-size: 14px; color: #8899bb; position: relative; z-index: 2; }
+    .download-warn { margin-top: 20px; max-width: 600px; margin-left: auto; margin-right: auto;
+        padding: 14px 20px; background: rgba(255, 200, 100, 0.15);
+        border: 1px solid rgba(255, 200, 100, 0.3); border-radius: 10px;
+        font-size: 13px; color: #ffd88a; position: relative; z-index: 2; }
 
     /* ==== ФУТЕР ==== */
-    footer {
-        padding: 40px 80px;
-        background: #0f0f1e;
-        color: #8899bb;
-        text-align: center;
-        font-size: 14px;
-    }
-
-    footer a {
-        color: #6b8cff;
-        text-decoration: none;
-    }
+    footer { padding: 40px 80px; background: #0f0f1e; color: #8899bb;
+        text-align: center; font-size: 14px; }
+    footer a { color: #6b8cff; text-decoration: none; }
 
     /* ==== АДАПТИВ ==== */
     @media (max-width: 968px) {
-        nav { padding: 15px 25px; }
-        nav ul { display: none; }
-        .hero {
-            flex-direction: column;
-            padding: 120px 25px 60px;
-            text-align: center;
-        }
-        .hero h1 { font-size: 42px; }
+        nav { padding: 12px 20px; }
+        nav ul li:not(:last-child) { display: none; }
+        .hero { flex-direction: column; padding: 100px 20px 60px; text-align: center; }
+        .hero h1 { font-size: 40px; }
         .hero p { font-size: 17px; margin-left: auto; margin-right: auto; }
         .hero-buttons { justify-content: center; }
-        .app-preview { width: 100%; max-width: 450px; margin-top: 50px; height: 300px; }
-        .features { padding: 60px 25px; }
-        .section-title h2 { font-size: 32px; }
-        .download { padding: 80px 25px; }
-        .download h2 { font-size: 32px; }
+        .cover-wrap { width: 100%; margin-top: 40px; }
+        .features, .updates, .feedback { padding: 60px 20px; }
+        .section-title h2 { font-size: 30px; }
+        .feedback-grid { grid-template-columns: 1fr; }
+        .download { padding: 70px 20px; }
+        .download h2 { font-size: 30px; }
         .download p { font-size: 16px; }
+        .download-btn { padding: 16px 28px; font-size: 15px; }
+        .update-item { padding: 20px 22px; }
     }
 </style>
 </head>
 <body>
 
-<!-- НАВИГАЦИЯ -->
+<!-- ==================== НАВИГАЦИЯ ==================== -->
 <nav>
-    <div class="logo">
-        <div class="logo-icon">W</div>
-        Word Free
-    </div>
+    <div class="logo"><div class="logo-icon">W</div>Word Free</div>
     <ul>
         <li><a href="#features">Возможности</a></li>
-        <li><a href="#download">Скачать</a></li>
-        <li><a href="#download" class="nav-btn">⬇ Загрузить</a></li>
+        <li><a href="#updates">Обновления</a></li>
+        <li><a href="#feedback">Отзывы</a></li>
+        <li><a href="#download" class="nav-btn">⬇ Скачать</a></li>
     </ul>
 </nav>
 
-<!-- ГЛАВНЫЙ БЛОК -->
+<!-- ==================== ГЛАВНЫЙ БЛОК ==================== -->
 <section class="hero">
     <div class="hero-text">
         <div class="badge">✨ Бесплатно и без ограничений</div>
         <h1>Твой <span>Word Free</span> для Windows</h1>
-        <p>Мощный текстовый редактор с таблицами, картинками, форматированием и печатью. Всё как в настоящем Word — только бесплатно и без подписок.</p>
+        <p>Мощный текстовый редактор с таблицами, картинками, форматированием, тёмной темой и экспортом в PDF. Всё как в настоящем Word — только бесплатно и без подписок.</p>
         <div class="hero-buttons">
-            <a href="#download" class="btn-primary">
-                ⬇ Скачать бесплатно
-            </a>
-            <a href="#features" class="btn-secondary">
-                Узнать больше
-            </a>
+            <a href="#download" class="btn-primary">⬇ Скачать бесплатно</a>
+            <a href="#features" class="btn-secondary">Узнать больше</a>
         </div>
     </div>
 
     <div class="hero-visual">
-        <div class="app-preview">
-            <div class="app-topbar">
-                <div class="dot red"></div>
-                <div class="dot yellow"></div>
-                <div class="dot green"></div>
-            </div>
-            <div class="app-toolbar">
-                <div class="tool-btn">Ж</div>
-                <div class="tool-btn">К</div>
-                <div class="tool-btn">Ч</div>
-                <div class="tool-btn">🎨</div>
-                <div class="tool-btn">📊</div>
-                <div class="tool-btn">📷</div>
-                <div class="tool-btn">🖨️</div>
-            </div>
-            <div class="app-content">
-                <h3>Мой документ</h3>
-                <div class="line medium"></div>
-                <div class="line short"></div>
-                <div class="line medium"></div>
-                <div class="line"></div>
-                <div class="line short"></div>
+        <div class="cover-wrap">
+            <div class="cover-browser">
+                <div class="cover-topbar">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="cover-content">
+                    <!-- Имитация нашей программы -->
+                    <div class="app-screenshot">
+                        <div class="app-titlebar">
+                            <div class="w-logo">W</div>
+                            <span>Word Free — Документ1.wfd</span>
+                        </div>
+                        <div class="app-menu">
+                            <span>Файл</span><span>Правка</span><span>Формат</span>
+                            <span>Вставка</span><span>Вид</span>
+                        </div>
+                        <div class="app-toolbar2">
+                            <div class="tb-btn">Segoe UI</div>
+                            <div class="tb-btn">12</div>
+                            <div class="tb-btn active">Ж</div>
+                            <div class="tb-btn">К</div>
+                            <div class="tb-btn">Ч</div>
+                            <div class="tb-btn">🖍️</div>
+                            <div class="tb-btn">🎨</div>
+                            <div class="tb-btn">x²</div>
+                            <div class="tb-btn">📊</div>
+                            <div class="tb-btn">📷</div>
+                            <div class="tb-btn">🔗</div>
+                            <div class="tb-btn">📅</div>
+                            <div class="tb-btn">🖨️</div>
+                            <div class="tb-btn">🌙</div>
+                        </div>
+                        <div class="app-text-area">
+                            <h4>Мой первый документ</h4>
+                            <div class="app-line long"></div>
+                            <div class="app-line medium"></div>
+                            <div class="app-line short"></div>
+                            <div class="app-table-mock">
+                                <div class="head">Имя</div>
+                                <div class="head">Возраст</div>
+                                <div class="head">Город</div>
+                                <div>Анна</div>
+                                <div>25</div>
+                                <div>Москва</div>
+                                <div>Иван</div>
+                                <div>30</div>
+                                <div>Питер</div>
+                            </div>
+                            <div class="app-line medium"></div>
+                            <div class="app-line short"></div>
+                        </div>
+                        <div class="app-status">
+                            <span>Готово</span>
+                            <span>Слов: 42 | Символов: 256</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ВОЗМОЖНОСТИ -->
+<!-- ==================== ВОЗМОЖНОСТИ ==================== -->
 <section class="features" id="features">
     <div class="section-title">
         <h2>Что умеет Word Free</h2>
-        <p>Всё, что нужно для работы с текстом — в одном простом приложении</p>
+        <p>Всё, что нужно для работы с текстом — в одном приложении</p>
     </div>
 
     <div class="features-grid">
-        <div class="feature-card">
-            <div class="feature-icon">📝</div>
-            <h3>Форматирование</h3>
-            <p>Жирный, курсив, подчёркнутый, маркер, цвет текста, надстрочный и подстрочный знаки.</p>
-        </div>
+        <div class="feature-card"><div class="feature-icon">📝</div><h3>Форматирование</h3>
+            <p>Жирный, курсив, подчёркнутый, маркер, цвет текста, надстрочный и подстрочный знаки.</p></div>
+        <div class="feature-card"><div class="feature-icon">📊</div><h3>9 видов таблиц</h3>
+            <p>Зебра, современная синяя, минимализм, сетка 3D, своя палитра и другие стили.</p></div>
+        <div class="feature-card"><div class="feature-icon">📷</div><h3>Вставка фото</h3>
+            <p>Вставляй картинки в документ — они сохраняются вместе с текстом.</p></div>
+        <div class="feature-card"><div class="feature-icon">🔍</div><h3>Поиск и замена</h3>
+            <p>Быстро находи и заменяй слова по всему документу, с учётом регистра.</p></div>
+        <div class="feature-card"><div class="feature-icon">🌙</div><h3>Тёмная тема</h3>
+            <p>Переключайся на тёмный режим одним кликом — для работы ночью.</p></div>
+        <div class="feature-card"><div class="feature-icon">📄</div><h3>Экспорт в PDF</h3>
+            <p>Сохраняй документы в формате PDF одной кнопкой — Ctrl+Shift+E.</p></div>
+        <div class="feature-card"><div class="feature-icon">🖨️</div><h3>Печать</h3>
+            <p>Отправляй документы на принтер одной кнопкой или через Ctrl+P.</p></div>
+        <div class="feature-card"><div class="feature-icon">🔗</div><h3>Ссылки и даты</h3>
+            <p>Вставляй кликабельные гиперссылки, даты и специальные символы.</p></div>
+        <div class="feature-card"><div class="feature-icon">😀</div><h3>Спецсимволы</h3>
+            <p>©, ®, ™, €, ★, ♥, →, α, β — целая палитра символов в один клик.</p></div>
+        <div class="feature-card"><div class="feature-icon">📏</div><h3>Межстрочный интервал</h3>
+            <p>Одинарный, полуторный, двойной — как в настоящем Word.</p></div>
+        <div class="feature-card"><div class="feature-icon">📈</div><h3>Счётчик слов</h3>
+            <p>Внизу окна всегда видно, сколько слов и символов в документе.</p></div>
+        <div class="feature-card"><div class="feature-icon">🆓</div><h3>Полностью бесплатно</h3>
+            <p>Никаких подписок, рекламы и «премиум» версий. Навсегда.</p></div>
+    </div>
+</section>
 
-        <div class="feature-card">
-            <div class="feature-icon">📊</div>
-            <h3>9 видов таблиц</h3>
-            <p>Зебра, современная синяя, минимализм, сетка 3D, своя палитра и другие стили.</p>
-        </div>
+<!-- ==================== ОБНОВЛЕНИЯ ==================== -->
+<section class="updates" id="updates">
+    <div class="section-title">
+        <h2>Обновления</h2>
+        <p>Что нового появилось в последних версиях</p>
+    </div>
 
-        <div class="feature-card">
-            <div class="feature-icon">📷</div>
-            <h3>Вставка фото</h3>
-            <p>Вставляй картинки в документ — они сохраняются вместе с текстом в формате HTML.</p>
-        </div>
-
-        <div class="feature-card">
-            <div class="feature-icon">🔍</div>
-            <h3>Поиск и замена</h3>
-            <p>Быстро находи и заменяй слова по всему документу, с учётом регистра.</p>
-        </div>
-
-        <div class="feature-card">
-            <div class="feature-icon">🖨️</div>
-            <h3>Печать</h3>
-            <p>Отправляй документы на принтер одной кнопкой или через Ctrl+P.</p>
-        </div>
-
-        <div class="feature-card">
-            <div class="feature-icon">🔗</div>
-            <h3>Ссылки и даты</h3>
-            <p>Вставляй кликабельные гиперссылки и текущую дату прямо в документ.</p>
-        </div>
-
-        <div class="feature-card">
-            <div class="feature-icon">↩️</div>
-            <h3>Отмена и возврат</h3>
-            <p>Ошибся? Нажми Ctrl+Z — и всё вернётся. Ctrl+Y вернёт отменённое.</p>
-        </div>
-
-        <div class="feature-card">
-            <div class="feature-icon">📈</div>
-            <h3>Счётчик слов</h3>
-            <p>Внизу окна всегда видно, сколько слов и символов в документе.</p>
-        </div>
-
-        <div class="feature-card">
-            <div class="feature-icon">🆓</div>
-            <h3>Полностью бесплатно</h3>
-            <p>Никаких подписок, рекламы, ограничений и «премиум» версий. Навсегда.</p>
+    <div class="update-list">
+        <div class="update-item">
+            <div class="update-header">
+                <div>
+                    <span class="update-version">Версия 1.0</span>
+                    <span class="update-tag">NEW</span>
+                </div>
+                <div class="update-date">9 октября 2026</div>
+            </div>
+            <ul class="update-list-content">
+                <li>Первый публичный релиз программы</li>
+                <li>Форматирование текста: жирный, курсив, подчёркнутый, маркер</li>
+                <li>9 видов таблиц: Зебра, Современная синяя, Сетка 3D и другие</li>
+                <li>Вставка фото, ссылок, дат и специальных символов</li>
+                <li>Тёмная тема и масштабирование документа</li>
+                <li>Экспорт в PDF и печать на принтере</li>
+                <li>Собственный формат файлов .wfd</li>
+                <li>Счётчик слов и символов в реальном времени</li>
+            </ul>
         </div>
     </div>
 </section>
 
-<!-- СКАЧАТЬ -->
+<!-- ==================== ОТЗЫВЫ И БАГИ ==================== -->
+<section class="feedback" id="feedback">
+    <div class="section-title">
+        <h2>Обратная связь</h2>
+        <p>Нашёл баг? Есть идея? Хочешь оставить отзыв? Мы всё читаем!</p>
+    </div>
+
+    <div class="feedback-grid">
+        <div class="feedback-card bug">
+            <div class="feedback-icon">🐛</div>
+            <h3>Нашёл баг?</h3>
+            <p>Расскажи нам о проблеме — мы её быстро исправим и выпустим обновление.</p>
+            <a href="https://github.com/tujbutla/word-free/issues/new?title=Баг: &body=Опишите проблему:%0A%0A1. Что вы делали:%0A2. Что произошло:%0A3. Что должно было быть:" 
+               target="_blank" class="feedback-btn bug">
+                🐞 Сообщить о баге
+            </a>
+        </div>
+
+        <div class="feedback-card review">
+            <div class="feedback-icon">⭐</div>
+            <h3>Оставить отзыв</h3>
+            <p>Понравилась программа? Поделись впечатлениями или предложи идею для новой версии.</p>
+            <a href="https://github.com/tujbutla/word-free/issues/new?title=Отзыв: &body=Ваш отзыв:%0A%0A" 
+               target="_blank" class="feedback-btn review">
+                💬 Написать отзыв
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== СКАЧАТЬ ==================== -->
 <section class="download" id="download">
     <h2>Готов начать?</h2>
     <p>Скачай Word Free прямо сейчас — установка не требуется</p>
@@ -611,20 +397,27 @@
     <div class="download-info">
         Windows 10 / 11 · ~45 МБ · Бесплатно навсегда
     </div>
+    <div class="download-warn">
+        ⚠️ Если Chrome или Windows предупредят об опасности — нажмите <b>"Сохранить всё равно"</b>. Это стандартное предупреждение для всех .exe из интернета.
+    </div>
 </section>
 
-<!-- ФУТЕР -->
+<!-- ==================== ФУТЕР ==================== -->
 <footer>
     <p>© 2026 Word Free. Сделано с ❤️ для тех, кто любит писать.</p>
+    <p style="margin-top: 10px;">
+        <a href="https://github.com/tujbutla/word-free" target="_blank">GitHub</a> · 
+        <a href="#updates">Обновления</a> · 
+        <a href="#feedback">Обратная связь</a>
+    </p>
 </footer>
 
 <script>
     function downloadApp() {
-        // Прямая ссылка на файл WordFree.exe в GitHub Releases
         window.location.href = 'https://github.com/tujbutla/word-free/releases/download/v1.0/WordFree.exe';
     }
 
-    // Плавное появление карточек при скролле
+    // Плавное появление карточек
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -634,11 +427,11 @@
         });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.feature-card').forEach((card, i) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transition = `all 0.6s ease ${i * 0.05}s`;
-        observer.observe(card);
+    document.querySelectorAll('.feature-card, .update-item, .feedback-card').forEach((el, i) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = `all 0.6s ease ${i * 0.05}s`;
+        observer.observe(el);
     });
 </script>
 
