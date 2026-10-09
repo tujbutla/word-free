@@ -59,7 +59,7 @@
         font-weight: 700; font-size: 16px; border: 2px solid #2c7be5; transition: all 0.3s; }
     .btn-secondary:hover { background: #2c7be5; color: white; transform: translateY(-3px); }
 
-    /* ==== ОБЛОЖКА ===== */
+    /* ==== ОБЛОЖКА ==== */
     .hero-visual { position: relative; z-index: 2; }
     .cover-wrap { width: 560px; max-width: 100%; position: relative; }
     .cover-browser { width: 100%; background: white; border-radius: 14px;
@@ -70,8 +70,6 @@
     .dot { width: 12px; height: 12px; border-radius: 50%; }
     .dot.red { background: #ff5f57; } .dot.yellow { background: #febc2e; } .dot.green { background: #28c840; }
     .cover-content { padding: 0; background: #fff; }
-
-    /* Имитация нашего приложения внутри "скриншота" */
     .app-screenshot { display: flex; flex-direction: column; height: 380px; }
     .app-titlebar { height: 34px; background: #f5f7fb; border-bottom: 1px solid #e5e7eb;
         display: flex; align-items: center; padding: 0 12px; font-size: 12px; color: #333;
@@ -137,7 +135,7 @@
     .update-list-content li { padding: 6px 0 6px 26px; position: relative; color: #555; font-size: 15px; }
     .update-list-content li::before { content: '✨'; position: absolute; left: 0; }
 
-    /* ==== ОТЗЫВЫ И БАГИ ==== */
+    /* ==== ОТЗЫВЫ ==== */
     .feedback { padding: 100px 80px; background: white; }
     .feedback-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
         max-width: 1000px; margin: 0 auto; }
@@ -147,7 +145,7 @@
     .feedback-card.review { background: linear-gradient(135deg, #f0f7ff, #e0eeff); border: 2px solid #d0e4ff; }
     .feedback-card:hover { transform: translateY(-6px); }
     .feedback-icon { font-size: 55px; margin-bottom: 20px; }
-    .feedback-card h3 { font-size: 24px; margin-bottom: 12px; color: #1a1a2e; }
+    .feedback-card h3 { font-size: 24px; margin-bottom: 12px; }
     .feedback-card p { color: #555; margin-bottom: 25px; font-size: 15px; }
     .feedback-btn { display: inline-flex; align-items: center; gap: 8px;
         padding: 14px 28px; border-radius: 10px; text-decoration: none;
@@ -236,7 +234,6 @@
                     <div class="dot green"></div>
                 </div>
                 <div class="cover-content">
-                    <!-- Имитация нашей программы -->
                     <div class="app-screenshot">
                         <div class="app-titlebar">
                             <div class="w-logo">W</div>
@@ -335,11 +332,32 @@
     </div>
 
     <div class="update-list">
+        <!-- ВЕРСИЯ 1.1 -->
+        <div class="update-item">
+            <div class="update-header">
+                <div>
+                    <span class="update-version">Версия 1.1</span>
+                    <span class="update-tag">NEW</span>
+                </div>
+                <div class="update-date">9 октября 2026</div>
+            </div>
+            <ul class="update-list-content">
+                <li>Тёмная тема для работы ночью</li>
+                <li>Экспорт документов в PDF</li>
+                <li>Вставка спецсимволов (©, ®, ₽, ★, ♥, α)</li>
+                <li>Масштабирование текста (Ctrl+ / Ctrl- / Ctrl+0)</li>
+                <li>Межстрочный интервал: одинарный, полуторный, двойной</li>
+                <li>Полноэкранный режим по F11</li>
+                <li>Собственный формат файлов .wfd</li>
+                <li>Исправлена печать — текст больше не мелкий</li>
+            </ul>
+        </div>
+
+        <!-- ВЕРСИЯ 1.0 -->
         <div class="update-item">
             <div class="update-header">
                 <div>
                     <span class="update-version">Версия 1.0</span>
-                    <span class="update-tag">NEW</span>
                 </div>
                 <div class="update-date">9 октября 2026</div>
             </div>
@@ -348,16 +366,13 @@
                 <li>Форматирование текста: жирный, курсив, подчёркнутый, маркер</li>
                 <li>9 видов таблиц: Зебра, Современная синяя, Сетка 3D и другие</li>
                 <li>Вставка фото, ссылок, дат и специальных символов</li>
-                <li>Тёмная тема и масштабирование документа</li>
-                <li>Экспорт в PDF и печать на принтере</li>
-                <li>Собственный формат файлов .wfd</li>
                 <li>Счётчик слов и символов в реальном времени</li>
             </ul>
         </div>
     </div>
 </section>
 
-<!-- ==================== ОТЗЫВЫ И БАГИ ==================== -->
+<!-- ==================== ОТЗЫВЫ ==================== -->
 <section class="feedback" id="feedback">
     <div class="section-title">
         <h2>Обратная связь</h2>
@@ -369,7 +384,7 @@
             <div class="feedback-icon">🐛</div>
             <h3>Нашёл баг?</h3>
             <p>Расскажи нам о проблеме — мы её быстро исправим и выпустим обновление.</p>
-            <a href="https://github.com/tujbutla/word-free/issues/new?title=Баг: &body=Опишите проблему:%0A%0A1. Что вы делали:%0A2. Что произошло:%0A3. Что должно было быть:" 
+            <a href="https://github.com/tujbutla/word-free/issues/new?title=Баг: &body=Опишите проблему:%0A%0A1. Что вы делали:%0A2. Что произошло:%0A3. Что должно было быть:"
                target="_blank" class="feedback-btn bug">
                 🐞 Сообщить о баге
             </a>
@@ -379,7 +394,7 @@
             <div class="feedback-icon">⭐</div>
             <h3>Оставить отзыв</h3>
             <p>Понравилась программа? Поделись впечатлениями или предложи идею для новой версии.</p>
-            <a href="https://github.com/tujbutla/word-free/issues/new?title=Отзыв: &body=Ваш отзыв:%0A%0A" 
+            <a href="https://github.com/tujbutla/word-free/issues/new?title=Отзыв: &body=Ваш отзыв:%0A%0A"
                target="_blank" class="feedback-btn review">
                 💬 Написать отзыв
             </a>
@@ -406,18 +421,18 @@
 <footer>
     <p>© 2026 Word Free. Сделано с ❤️ для тех, кто любит писать.</p>
     <p style="margin-top: 10px;">
-        <a href="https://github.com/tujbutla/word-free" target="_blank">GitHub</a> · 
-        <a href="#updates">Обновления</a> · 
+        <a href="https://github.com/tujbutla/word-free" target="_blank">GitHub</a> ·
+        <a href="#updates">Обновления</a> ·
         <a href="#feedback">Обратная связь</a>
     </p>
 </footer>
 
 <script>
     function downloadApp() {
+        // ⬇️ ССЫЛКА НА ВЕРСИЮ 1.1 ⬇️
         window.location.href = 'https://github.com/tujbutla/word-free/releases/download/v1.1/WordFree.exe';
     }
 
-    // Плавное появление карточек
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
